@@ -1,3 +1,6 @@
+# OS X
+.DS_Store
+
 *.gem
 *.rbc
 .bundle
@@ -16,3 +19,6 @@ tmp
 .yardoc
 _yardoc
 doc/
+
+# Backups
+*~
