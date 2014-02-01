@@ -5,7 +5,9 @@ Ruby script generating JSON model objects in Java when using GSON
 
 Usage:
 
-    ruby GSONClassGenerator.rb [-gfscb] json_file class_name [output_directory]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ruby gson-class-generator.rb [-gfscb] json_file class_name [output_directory]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Flags:
 
