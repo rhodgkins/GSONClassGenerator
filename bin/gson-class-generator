@@ -1,0 +1,75 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/gson-class-generator.rb'
+
+module GsonClassGeneratorExecutor
+
+	private
+
+	def self.abort_with_help(message = nil)
+		puts "#{message}\n\n" if message
+		puts <<-HELP 
+Usage:
+ 	#{File.basename(__FILE__)} [-gfscb] <json_file> <class_name> <output_dir>
+
+Flags:
+	g - Generate getters.
+	s - Generate setters.
+	f - All fields are final, this will also generate a public no arguement constructor for all classes and the 's' flag is ignored.
+	c - A public constructor is generated for all the classes with all the fields as arguments.
+	b - All primative types are boxed.
+
+Arguments:
+	json_file - The file you want to generate the model class from.
+	class_name - The top level class name, and therefore the name of the output file.
+	output_directory - The location to save the generated model class. If this is not provided the current directory will be used.
+		HELP
+		abort
+	end
+	
+	def self.check_flags(args)
+		if (args.match(/^[gsfcb]+$/) === nil)
+			abort_with_help("Unknown argument: " + args.gsub(/[gsfcb]/, ""))
+		end
+	end
+	
+	def self.get_opts(flags)
+		{
+			:getters => !(flags.match(/^-.*g.*/) === nil),
+			:setters => !(flags.match(/^-.*s.*/) === nil),
+			:final_fields => !(flags.match(/^-.*f.*/) === nil),
+			:field_constructor => !(flags.match(/^-.*c.*/) === nil),
+			:boxed_primatives => !(flags.match(/^-.*b.*/) === nil)
+		}
+	end
+	
+	public
+
+	def self.run(args)
+	
+		if (args.length == 0)
+			abort_with_help("No arguments given")
+		end
+	
+		args_offset = 0
+		flags = args[0]
+		if (flags.match(/^-.+$/))
+			check_flags(flags.gsub(/^-/, ""))
+			args_offset += 1
+		else 
+			flags = ""
+		end
+	
+		opts = self.get_opts(flags)
+		
+		json_file = args[args_offset + 0]
+		class_name = args[args_offset + 1]
+		output_directory = args.fetch(args_offset + 2, "")
+	
+		outputted_filename = GSONClassGenerator::generate(json_file, class_name, output_directory, opts)
+		
+		puts "Generated '#{outputted_filename}'"
+	end
+end
+
+GsonClassGeneratorExecutor::run(ARGV)
