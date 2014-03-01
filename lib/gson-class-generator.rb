@@ -397,7 +397,7 @@ module GSONClassGenerator
 		end
 		
 		def self.javaify_key(json_key, is_array)
-			field_name = json_key
+			field_name = json_key.dup
 			
 			if (is_array)
 				if (!field_name.end_with?("s"))
@@ -407,13 +407,13 @@ module GSONClassGenerator
 			end
 			
 			# Clean up first character
-			field_name = field_name.gsub(/^[^\p{Pc}\p{Alnum}\p{Sc}]+/, "")
+			field_name.gsub!(/^[^\p{Pc}\p{Alnum}\p{Sc}]+/, "")
 	
 			# Clean up allowed characters
-			field_name = field_name.gsub(/[^\p{Pc}\p{Alnum}\p{Sc}]/, "_")
+			field_name.gsub!(/[^\p{Pc}\p{Alnum}\p{Sc}]/, "_")
 			
 			# Camel case underscores
-			field_name = field_name.gsub(/(?!^_)_+(.)/) { $1.upcase }
+			field_name.gsub!(/(?!^_)_+(.)/) { $1.upcase }
 			
 			# Clean up field name in case its a Java keyword
 			if (!(JAVA_KEYWORDS.index(field_name) === nil))
@@ -421,7 +421,7 @@ module GSONClassGenerator
 			end
 			
 			# Lower case first letter, but allow if 2 or more upper case characters are present
-			field_name = field_name.gsub(/^(\p{Upper})(?!\p{Upper}+)/) { $1.downcase }
+			field_name.gsub!(/^(\p{Upper})(?!\p{Upper}+)/) { $1.downcase }
 			
 			field_name
 		end
