@@ -1,4 +1,4 @@
-GSONClassGenerator
+GSONClassGenerator <a href="http://badge.fury.io/rb/gson-class-generator"><img src="https://badge.fury.io/rb/gson-class-generator@2x.png" alt="Gem Version" height="18"></a>
 ==================
 
 Ruby script generating JSON model objects in Java when using GSON.
