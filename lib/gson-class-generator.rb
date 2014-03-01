@@ -420,6 +420,9 @@ module GSONClassGenerator
 				field_name += "_"
 			end
 			
+			# Lower case first letter, but allow if 2 or more upper case characters are present
+			field_name = field_name.gsub(/^(\p{Upper})(?!\p{Upper}+)/) { $1.downcase }
+			
 			field_name
 		end
 	end
