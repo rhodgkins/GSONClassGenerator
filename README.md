@@ -6,6 +6,8 @@ Ruby script generating JSON model objects in Java when using GSON.
 The classes can be used as is, or just generated for quickness instead of
 manually typing them all out.
 
+The field names in the JSON are normalized, stripping out invalid characters and also converted to camel case to fit in with Java and produce cleaner code.
+
 Installation
 ------------
 
